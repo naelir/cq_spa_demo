@@ -19,10 +19,10 @@ export default {
   name: 'CqTipable',
   data: function () {
     return {
-      question: '',
+      question: '---',
       answer: '',
       isRequestPending: false,
-      apiEndpoint: '/tip'
+      url: 'tipable'
     }
   },
   created: function () {
@@ -31,7 +31,7 @@ export default {
   methods: {
     getQuestion: function () {
       this.$http
-      .get(this.apiEndpoint)
+      .get(this.url)
       .then(
       response => {
         this.question = response.body.question
@@ -55,9 +55,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.cq-question{
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
 </style>

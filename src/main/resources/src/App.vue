@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <ul>
-      <li><a class="active" href="#/selectable">selectable</a></li>
-      <li><a href="#/tipable">tipable</a></li>
+      <li><a href="#/selectable" class="active" v-t="'selectable'">selectable</a></li>
+      <li><a href="#/tipable" v-t="'tipable'">tipable</a></li>
+      <li><a href="#/translatable" v-t="'translatable'">translatable</a></li>a
     </ul>
-    <div id="cq-top"></div>
-    <router-view/>
+    <router-view :key="$route.path"/>
   </div>
 </template>
 
@@ -23,26 +23,10 @@ export default {
   text-align: center;
 }
 
-#cq-menu {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-}
-
-.cq-menu-item {
-  display: table-cell;
-}
-
-.cq-menu-item:hover {
-  background-color: #aec1c1;
-}
 a {
   text-decoration: none;
 }
 
-#cq-top {
-  height: 200px;
-}
 ul {
     list-style-type: none;
     margin: 0;
@@ -65,5 +49,17 @@ li a {
 
 li a:hover {
     background-color: #111;
+}
+
+.cq-question {
+  background-color: #FFFFFF;
+  font-style: normal;
+  font-family: "Verdana";
+  text-align: center;
+  border: 1px solid #000;
+  font-size: 20px;
+  width: 100%;
+  padding: 0;
+  margin: 15px 0 50px 0;
 }
 </style>

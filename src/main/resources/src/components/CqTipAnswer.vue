@@ -1,5 +1,7 @@
 <template> 
-  <input type="text" @keyup.enter="onEnter" v-model="input" autofocus="true"><img src="">
+  <div> 
+   <input type="text" @keyup.enter="onEnter" v-model="input" autofocus="true">
+</div>
 </template>
 
 <script>

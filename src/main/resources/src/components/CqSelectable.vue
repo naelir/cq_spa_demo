@@ -1,14 +1,16 @@
 <template> 
   <div>
-    <cq-question class="cq-question" :question="question"></cq-question>
-    <div class="cq-options-container">
+    <cq-question class="cq-question" :question="selectable.question"></cq-question>
+    <input type="checkbox" v-model="toHideOptions">
+    <button @click="getQuestion" v-t="'next'">next</button>
+    <div class="cq-options-container" :class="{'to-hide-options':toHideOptions}">
       <div class="cq-row">
-        <cq-option @cq-option-correct-answer="changeQuestion" :option="options[0]"></cq-option>
-        <cq-option @cq-option-correct-answer="changeQuestion" :option="options[1]"></cq-option>
+        <cq-option @cq-option-correct-answer="changeQuestion" :option="selectable.options[0]"></cq-option>
+        <cq-option @cq-option-correct-answer="changeQuestion" :option="selectable.options[1]"></cq-option>
       </div>
       <div class="cq-row">
-        <cq-option @cq-option-correct-answer="changeQuestion" :option="options[2]"></cq-option>
-        <cq-option @cq-option-correct-answer="changeQuestion" :option="options[3]"></cq-option>
+        <cq-option @cq-option-correct-answer="changeQuestion" :option="selectable.options[2]"></cq-option>
+        <cq-option @cq-option-correct-answer="changeQuestion" :option="selectable.options[3]"></cq-option>
       </div>
     </div>
   </div>
@@ -27,23 +29,27 @@ export default {
   name: 'CqSelectable',
   data: function () {
     return {
-      options: [{
-        text: '',
-        correct: true
-      }, {
-        text: '',
-        correct: true
-      }, {
-        text: '',
-        correct: true
-      }, {
-        text: '',
-        correct: true
-      }],
-      question: '',
+      selectable: {
+        options: [{
+          text: '-',
+          correct: true
+        }, {
+          text: '-',
+          correct: true
+        }, {
+          text: '-',
+          correct: true
+        }, {
+          text: '-',
+          correct: true
+        }],
+        question: '---',
+        id: 0
+      },
       isRequestPending: false,
       defaultTimeout: 2000,
-      apiEndpoint: '/question'
+      toHideOptions: true,
+      url: 'selectable'
     }
   },
   created: function () {
@@ -52,11 +58,10 @@ export default {
   methods: {
     getQuestion: function () {
       this.$http
-      .get(this.apiEndpoint)
+      .get(this.url)
       .then(
       response => {
-        this.question = response.body.question
-        this.options = response.body.options
+        this.selectable = response.body
         this.isRequestPending = false
       },
       response => {
@@ -76,12 +81,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .cq-options-container {
   border: 1px solid black;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
   display: table;
 }
 
@@ -89,8 +91,7 @@ export default {
   display: table-row;
 }
 
-.cq-question{
-  margin-top: 50px;
-  margin-bottom: 50px;
+.to-hide-options{
+  display: none;
 }
 </style>

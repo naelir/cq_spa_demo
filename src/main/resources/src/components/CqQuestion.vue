@@ -10,7 +10,7 @@ export default {
     question: {
       type: String,
       default: function () {
-        return '-'
+        return ''
       }
     }
   }
@@ -19,13 +19,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-.cq-question {
-  background-color: #FFFFFF;
-  font-style: normal;
-  font-size: 20px;
-  font-family: "Verdana";
-  text-align: center;
-  width: 100%;
-}
 </style>

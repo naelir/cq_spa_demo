@@ -1,0 +1,6 @@
+/target/
+/index.txt
+/node_modules/
+/npm-debug.log
+/cq_spa_demo_log.log
+/questions.txt

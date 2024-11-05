@@ -1,9 +1,7 @@
 package cq_spa_demo.factory;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
@@ -12,6 +10,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cq_spa_demo.Converter;
 import cq_spa_demo.model.Option;
 import cq_spa_demo.model.Selectable;
 
@@ -41,10 +40,7 @@ public class FileSelectableLoader {
 	}
 
 	public Map<String, Selectable> load() {
-		try (
-			FileInputStream fis = new FileInputStream(this.fileName);
-			InputStreamReader isr = new InputStreamReader(fis, this.encoding);
-			BufferedReader in = new BufferedReader(isr)) {
+		try (BufferedReader in = Converter.decoder(fileName, encoding)) {
 			final Map<String, Selectable> questions = new ConcurrentSkipListMap<>();
 			for (String inputLine = in.readLine(); inputLine != null; inputLine = in.readLine()) {
 				final String[] parts = inputLine.split("\\|");
